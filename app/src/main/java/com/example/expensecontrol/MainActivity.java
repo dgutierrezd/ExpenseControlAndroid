@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    String dato;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +28,33 @@ public class MainActivity extends AppCompatActivity {
         CheckBox egreso = (CheckBox) findViewById(R.id.cEgreso);
         CheckBox ingreso = (CheckBox) findViewById(R.id.cIngreso);
 
-        String value = eMonto.getText().toString();
+        String monto = eMonto.getText().toString();
 
-        if(!egreso.isChecked() && !ingreso.isChecked() || value.isEmpty()) {
+        if(!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) {
             crearDialogoSimple("Debes llenar todos los campos requeridos.");
         } else {
             // int monto = Integer.parseInt(value);
             String categoria = String.valueOf(sCategorias.getSelectedItem());
 
-            ReadWrite.writeFile(value, this);
+            ReadWrite.writeFile(guardarDatos(monto, categoria, verificarCheckBox()), this);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
             limpiarEspacios();
         }
 
 
+    }
+
+    public String guardarDatos(String monto, String categoria, String estado) {
+        String datos = null;
+        switch(estado) {
+            case "Egreso":
+                datos = monto + " " + categoria + " " + estado;
+            break;
+            case "Ingreso":
+                datos = monto + " " + estado;
+            break;
+        }
+        return datos;
     }
 
     public void habilitarCategorias(Boolean opcion) {
@@ -55,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void verificarCheckBox() {
+    public String verificarCheckBox() {
         final CheckBox egreso = (CheckBox) findViewById(R.id.cEgreso);
         final CheckBox ingreso = (CheckBox) findViewById(R.id.cIngreso);
+
 
         egreso.setOnClickListener(new View.OnClickListener() {
 
@@ -68,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Egreso Checked", Toast.LENGTH_SHORT).show();
                     ingreso.setChecked(false);
                     habilitarCategorias(true);
-
+                    dato = "Egreso";
                 } else {
                     Toast.makeText(MainActivity.this, "Egreso Un-Checked", Toast.LENGTH_SHORT).show();
                     habilitarCategorias(false);
@@ -85,11 +101,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Ingreso Checked", Toast.LENGTH_LONG).show();
                     egreso.setChecked(false);
                     habilitarCategorias(false);
+                    dato = "Ingreso";
                 } else {
                     Toast.makeText(MainActivity.this, "Ingreso Un-Checked", Toast.LENGTH_LONG).show();
                 }
             }
         });
+        return dato;
     }
 
     public void limpiarEspacios() {
