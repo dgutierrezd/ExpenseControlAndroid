@@ -2,7 +2,9 @@ package com.example.expensecontrol;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,5 +34,12 @@ public class ResultsActivity extends AppCompatActivity {
         cantidadDinero.setText("Tienes en tu cuenta: $ " + cantidad);
     }
      */
+
+    public void onLimpiar(View view) {
+        ReadWrite.writeFile("", this);
+        finish();
+        startActivity(getIntent());
+        Toast.makeText(this, "Se ha limpiado satisfactoriamente.", Toast.LENGTH_SHORT).show();
+    }
 
 }
