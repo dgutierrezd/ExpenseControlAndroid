@@ -9,9 +9,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    String dato;
+    private String dato;
+    private static final String EGRESO = "--";
+    private static final String INGRESO = "++";
+    private ArrayList<Double> egresos = new ArrayList<>();
+    private ArrayList<Double> ingresos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // int monto = Integer.parseInt(value);
             String categoria = String.valueOf(sCategorias.getSelectedItem());
+            String datos = ReadWrite.readFile(MainActivity.this) + guardarDatos(monto, categoria, verificarCheckBox());
 
-            ReadWrite.writeFile(guardarDatos(monto, categoria, verificarCheckBox()), this);
+            ReadWrite.writeFile(datos, this);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
             limpiarEspacios();
         }
@@ -46,15 +53,24 @@ public class MainActivity extends AppCompatActivity {
 
     public String guardarDatos(String monto, String categoria, String estado) {
         String datos = null;
+
+        double valorMonto = Double.parseDouble(monto);
         switch(estado) {
             case "Egreso":
-                datos = monto + " " + categoria + " " + estado;
+                datos = monto + " " + categoria + " " + EGRESO;
             break;
             case "Ingreso":
-                datos = monto + " " + estado;
+                datos = monto + " " + INGRESO;
             break;
         }
         return datos;
+    }
+
+    public double conocerCantidad(double egresos, double ingresos) {
+        double cantidad = 0;
+        cantidad -= egresos;
+        cantidad += ingresos;
+        return cantidad;
     }
 
     public void habilitarCategorias(Boolean opcion) {
@@ -119,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         eMonto.setText("");
         egreso.setChecked(false);
-        ingreso.setChecked(true);
+        ingreso.setChecked(false);
         sCategorias.setSelection(0);
     }
 

@@ -20,6 +20,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void verRegistros(View view) {
-        Toast.makeText(this, ReadWrite.readFile(MenuActivity.this), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ResultsActivity.class);
+        startActivity(intent);
+        //Toast.makeText(this, ReadWrite.readFile(MenuActivity.this), Toast.LENGTH_LONG).show();
     }
 }

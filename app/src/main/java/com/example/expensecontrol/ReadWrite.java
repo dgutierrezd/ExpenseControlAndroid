@@ -32,6 +32,7 @@ public class ReadWrite {
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     stringBuilder.append(receiveString);
+                    stringBuilder.append('\n');
                 }
 
                 inputStream.close();
