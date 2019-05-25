@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Expense Control</string>
+    <string name="title">Controla tus Gastos Mensuales</string>
+    <string-array name="categories">
+        <item>Selecciona una categoría...</item>
+        <item>Comida</item>
+        <item>Transporte</item>
+        <item>Universidad</item>
+        <item>Fiesta</item>
+    </string-array>
+    <string-array name="opciones">
+        <item>Selecciona una opción</item>
+        <item>Egreso</item>
+        <item>Ingreso</item>
+    </string-array>
+</resources>
