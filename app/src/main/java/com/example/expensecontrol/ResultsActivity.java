@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ResultsActivity extends AppCompatActivity {
 
     private MainActivity mainActivity;
+    private ReadWrite readWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +23,18 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void showData() {
         TextView data = (TextView) findViewById(R.id.lDatos);
-        data.setText(ReadWrite.readFile(ResultsActivity.this));
+        data.setText(readWrite.readFileString(ResultsActivity.this));
     }
 
-    /**
     public void conocerCantidad() {
-        double cantidad = mainActivity.conocerCantidad();
 
         TextView cantidadDinero = (TextView) findViewById(R.id.lDinero);
 
-        cantidadDinero.setText("Tienes en tu cuenta: $ " + cantidad);
+        // cantidadDinero.setText("Tienes en tu cuenta: $ " + cantidad);
     }
-     */
 
     public void onLimpiar(View view) {
-        ReadWrite.writeFile("", this);
+        readWrite.writeFile("", this);
         finish();
         startActivity(getIntent());
         Toast.makeText(this, "Se ha limpiado satisfactoriamente.", Toast.LENGTH_SHORT).show();

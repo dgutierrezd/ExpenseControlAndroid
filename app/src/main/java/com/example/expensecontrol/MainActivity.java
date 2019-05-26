@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private String dato;
     private static final String EGRESO = "--";
     private static final String INGRESO = "++";
-    private ArrayList<Double> egresos = new ArrayList<>();
-    private ArrayList<Double> ingresos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
         if(!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) {
             crearDialogoSimple("Debes llenar todos los campos requeridos.");
         } else {
-            // int monto = Integer.parseInt(value);
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = ReadWrite.readFile(MainActivity.this) + guardarDatos(monto, categoria, verificarCheckBox());
+            String datos = ReadWrite.readFileString(MainActivity.this) + guardarDatos(monto, categoria, verificarCheckBox());
 
             ReadWrite.writeFile(datos, this);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
@@ -53,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     public String guardarDatos(String monto, String categoria, String estado) {
         String datos = null;
-
         double valorMonto = Double.parseDouble(monto);
         switch(estado) {
             case "Egreso":
@@ -64,13 +60,6 @@ public class MainActivity extends AppCompatActivity {
             break;
         }
         return datos;
-    }
-
-    public double conocerCantidad(double egresos, double ingresos) {
-        double cantidad = 0;
-        cantidad -= egresos;
-        cantidad += ingresos;
-        return cantidad;
     }
 
     public void habilitarCategorias(Boolean opcion) {

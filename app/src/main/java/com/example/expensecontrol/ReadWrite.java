@@ -13,12 +13,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class ReadWrite {
 
     final static String filePath = "data.txt";
 
-    public static  String readFile( Context context) {
+    public static  String readFileString( Context context) {
         String data = "";
 
         try {
