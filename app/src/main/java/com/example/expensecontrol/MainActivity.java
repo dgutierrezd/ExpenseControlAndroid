@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private String dato;
     private static final String EGRESO = "--";
     private static final String INGRESO = "++";
+    private double dinero = 0;
+    protected String filePath = "datos.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
             crearDialogoSimple("Debes llenar todos los campos requeridos.");
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = ReadWrite.readFileString(MainActivity.this) + guardarDatos(monto, categoria, verificarCheckBox());
+            String datos = ReadWrite.readFileString(MainActivity.this, filePath) + guardarDatos(monto, categoria, verificarCheckBox());
 
-            ReadWrite.writeFile(datos, this);
+            ReadWrite.writeFile(datos, this, filePath);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
             limpiarEspacios();
         }
@@ -54,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
         switch(estado) {
             case "Egreso":
                 datos = monto + " " + categoria + " " + EGRESO;
+                conocerDinero(valorMonto, estado);
             break;
             case "Ingreso":
                 datos = monto + " " + INGRESO;
+                conocerDinero(valorMonto, estado);
             break;
         }
         return datos;
@@ -66,6 +73,21 @@ public class MainActivity extends AppCompatActivity {
         Spinner sCategorias = (Spinner) findViewById(R.id.sCategorias);
         sCategorias.setEnabled(opcion);
         sCategorias.setClickable(opcion);
+    }
+
+    public void conocerDinero(double monto, String estado) {
+        String money = ReadWrite.readFile(this, "money.txt");
+        double dMoney = Double.parseDouble(money);
+        switch(estado) {
+            case "Ingreso":
+                setDinero( dMoney + monto);
+            break;
+            case "Egreso":
+                setDinero(dMoney - monto);
+            break;
+        }
+        String dato = Double.toString(getDinero());
+        ReadWrite.writeFile(dato, this, "money.txt");
     }
 
     public void crearDialogoSimple(String mensaje) {
@@ -126,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
         egreso.setChecked(false);
         ingreso.setChecked(false);
         sCategorias.setSelection(0);
+    }
+
+    public void setDinero(double dinero) {
+        this.dinero = dinero;
+    }
+
+    public double getDinero() {
+        return dinero;
     }
 
 }

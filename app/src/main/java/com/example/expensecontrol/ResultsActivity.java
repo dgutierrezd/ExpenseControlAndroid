@@ -18,23 +18,24 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         showData();
-        // conocerCantidad();
+        conocerCantidad();
     }
 
     public void showData() {
         TextView data = (TextView) findViewById(R.id.lDatos);
-        data.setText(readWrite.readFileString(ResultsActivity.this));
+        data.setText(readWrite.readFileString(ResultsActivity.this, "datos.txt"));
     }
 
     public void conocerCantidad() {
 
         TextView cantidadDinero = (TextView) findViewById(R.id.lDinero);
 
-        // cantidadDinero.setText("Tienes en tu cuenta: $ " + cantidad);
+        cantidadDinero.setText("Tienes en tu cuenta: $ " + readWrite.readFile(this, "money.txt"));
     }
 
     public void onLimpiar(View view) {
-        readWrite.writeFile("", this);
+        readWrite.writeFile("", this, "datos.txt");
+        readWrite.writeFile("0.0", this, "money.txt");
         finish();
         startActivity(getIntent());
         Toast.makeText(this, "Se ha limpiado satisfactoriamente.", Toast.LENGTH_SHORT).show();
