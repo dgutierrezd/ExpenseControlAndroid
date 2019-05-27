@@ -1,5 +1,7 @@
 package com.example.expensecontrol;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +32,14 @@ public class ResultsActivity extends AppCompatActivity {
 
         TextView cantidadDinero = (TextView) findViewById(R.id.lDinero);
 
-        cantidadDinero.setText("Tienes en tu cuenta: $ " + readWrite.readFile(this, "money.txt"));
+        String money = readWrite.readFile(this, "money.txt");
+        double dMoney = Double.parseDouble(money);
+
+        if(dMoney < 0) {
+            cantidadDinero.setTextColor(Color.RED);
+        }
+
+        cantidadDinero.setText("Tienes en tu cuenta: $ " + dMoney);
     }
 
     public void onLimpiar(View view) {
