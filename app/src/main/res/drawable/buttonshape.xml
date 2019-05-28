@@ -3,7 +3,10 @@
     <corners
         android:radius="14dp"
     />
-    <stroke android:color="#4595c6" android:width="2dp"/>
+    <gradient
+        android:startColor="@android:color/transparent"
+        android:endColor="@android:color/holo_blue_light"
+        android:angle="270" />
     <padding
         android:left="0dp"
         android:top="0dp"
