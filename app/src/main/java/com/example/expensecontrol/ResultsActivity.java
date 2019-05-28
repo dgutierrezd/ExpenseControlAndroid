@@ -32,7 +32,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         TextView cantidadDinero = (TextView) findViewById(R.id.lDinero);
 
-        String money = readWrite.readFile(this, "money.txt");
+        String money = readWrite.readFileString(this, "money.txt");
         double dMoney = Double.parseDouble(money);
 
         if(dMoney < 0) {

@@ -47,35 +47,6 @@ public class ReadWrite {
         return data;
     }
 
-    public static String readFile(Context context, String filePath) {
-        String data = "";
-
-        try {
-            InputStream inputStream = context.openFileInput(filePath);
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                data = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado.");
-        } catch (IOException e) {
-            System.out.println("Error al leer.");
-        }
-
-        return data;
-    }
-
     public static void writeFile(String data, Context context, String filePath) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filePath, Context.MODE_PRIVATE));

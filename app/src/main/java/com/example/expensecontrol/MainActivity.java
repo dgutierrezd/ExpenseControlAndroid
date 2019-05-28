@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void conocerDinero(double monto, String estado) {
-        String money = ReadWrite.readFile(this, "money.txt");
+        String money = ReadWrite.readFileString(this, "money.txt");
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
