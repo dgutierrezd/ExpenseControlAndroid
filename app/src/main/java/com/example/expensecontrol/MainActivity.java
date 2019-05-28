@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         double valorMonto = Double.parseDouble(monto);
         switch(estado) {
             case "Egreso":
-                datos = monto + " " + categoria + " " + EGRESO;
+                datos = EGRESO + " " + monto + " " + categoria;
                 conocerDinero(valorMonto, estado);
             break;
             case "Ingreso":
-                datos = monto + " " + INGRESO;
+                datos = INGRESO + " " + monto ;
                 conocerDinero(valorMonto, estado);
             break;
         }
