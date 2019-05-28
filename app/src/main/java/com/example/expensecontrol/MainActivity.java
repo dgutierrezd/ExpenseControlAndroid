@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         String monto = eMonto.getText().toString();
 
-        if(!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) {
+        if((!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) || egreso.isChecked() && sCategorias.getSelectedItemPosition() == 0) {
             crearDialogoSimple("Debes llenar todos los campos requeridos.");
+
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
             String datos = ReadWrite.readFileString(MainActivity.this, filePath) + guardarDatos(monto, categoria, verificarCheckBox());

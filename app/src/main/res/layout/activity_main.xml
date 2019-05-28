@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/bdialog">
 
     <TextView
         android:id="@+id/textView"
@@ -66,8 +67,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="244dp"
+        android:background="@drawable/buttonshape"
+        android:foregroundTint="#00000000"
         android:onClick="onAgregar"
         android:text="Agregar"
+        android:textColor="@color/textColorBlack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

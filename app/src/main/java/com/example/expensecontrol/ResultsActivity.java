@@ -39,7 +39,7 @@ public class ResultsActivity extends AppCompatActivity {
             cantidadDinero.setTextColor(Color.RED);
         }
 
-        cantidadDinero.setText("Tienes en tu cuenta: $ " + dMoney);
+        cantidadDinero.setText("$ " + dMoney);
     }
 
     public void onLimpiar(View view) {
