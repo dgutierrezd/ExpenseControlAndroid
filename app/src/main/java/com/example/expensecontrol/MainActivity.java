@@ -7,18 +7,13 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private String dato;
-    private static final String EGRESO = "--";
-    private static final String INGRESO = "++";
+    private static final String EGRESO = "Egreso: ";
+    private static final String INGRESO = "Ingreso: ";
     private double dinero = 0;
     protected String filePath = "datos.txt";
 
@@ -44,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = ReadWrite.readFileString(MainActivity.this, filePath) + guardarDatos(monto, categoria, verificarCheckBox());
+            String datos = Read.readFileString(MainActivity.this, filePath) + guardarDatos(monto, categoria, verificarCheckBox());
 
-            ReadWrite.writeFile(datos, this, filePath);
+            Write.writeFile(datos, this, filePath);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
             limpiarEspacios();
         }
@@ -77,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void conocerDinero(double monto, String estado) {
-        String money = ReadWrite.readFileString(this, "money.txt");
+        String money = Read.readFileString(this, "money.txt");
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             break;
         }
         String dato = Double.toString(getDinero());
-        ReadWrite.writeFile(dato, this, "money.txt");
+        Write.writeFile(dato, this, "money.txt");
     }
 
     public void crearDialogoSimple(String mensaje) {

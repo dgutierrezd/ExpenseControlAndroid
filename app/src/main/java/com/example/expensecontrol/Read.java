@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class ReadWrite {
+public class Read {
 
     public static  String readFileString(Context context, String filePath) {
         String data = "";
@@ -45,16 +45,5 @@ public class ReadWrite {
         }
 
         return data;
-    }
-
-    public static void writeFile(String data, Context context, String filePath) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filePath, Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            System.out.println("Error.");
-        }
     }
 }
