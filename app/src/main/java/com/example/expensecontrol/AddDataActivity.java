@@ -142,11 +142,13 @@ public class AddDataActivity extends AppCompatActivity {
     public void limpiarEspacios() {
         EditText eMonto = (EditText) findViewById(R.id.tMonto);
         Spinner sCategorias = (Spinner) findViewById(R.id.sCategorias);
+        EditText eDescripcion = (EditText) findViewById(R.id.tDescripcion);
 
         CheckBox egreso = (CheckBox) findViewById(R.id.cEgreso);
         CheckBox ingreso = (CheckBox) findViewById(R.id.cIngreso);
 
         eMonto.setText("");
+        eDescripcion.setText("");
         egreso.setChecked(false);
         ingreso.setChecked(false);
         sCategorias.setSelection(0);
