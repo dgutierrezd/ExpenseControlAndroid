@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class Read {
+public class Reader {
 
     public static  String readFileString(Context context, String filePath) {
         String data = "";

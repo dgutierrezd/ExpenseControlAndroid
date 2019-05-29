@@ -5,7 +5,7 @@ import android.content.Context;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class Write {
+public class Writer {
 
     public static void writeFile(String data, Context context, String filePath) {
         try {

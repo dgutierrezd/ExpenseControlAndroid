@@ -19,14 +19,14 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void showData() {
         TextView data = (TextView) findViewById(R.id.lDatos);
-        data.setText(Read.readFileString(ResultsActivity.this, "datos.txt"));
+        data.setText(Reader.readFileString(ResultsActivity.this, "datos.txt"));
     }
 
     public void conocerCantidad() {
 
         TextView cantidadDinero = (TextView) findViewById(R.id.lDinero);
 
-        String money = Read.readFileString(this, "money.txt");
+        String money = Reader.readFileString(this, "money.txt");
         double dMoney = Double.parseDouble(money);
 
         if(dMoney < 0) {
@@ -37,8 +37,8 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void onLimpiar(View view) {
-        Write.writeFile("", this, "datos.txt");
-        Write.writeFile("0.0", this, "money.txt");
+        Writer.writeFile("", this, "datos.txt");
+        Writer.writeFile("0.0", this, "money.txt");
         finish();
         startActivity(getIntent());
         Toast.makeText(this, "Se ha limpiado satisfactoriamente.", Toast.LENGTH_SHORT).show();
