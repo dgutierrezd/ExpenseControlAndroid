@@ -50,7 +50,7 @@
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="120dp"
         android:entries="@array/categories"
         app:layout_constraintBottom_toTopOf="@+id/bAgregar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/buttonshape"
         android:foregroundTint="#00000000"
         android:onClick="onAgregar"
@@ -116,8 +116,8 @@
 
     <EditText
         android:id="@+id/tDescripcion"
-        android:layout_width="212dp"
-        android:layout_height="112dp"
+        android:layout_width="213dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -127,7 +127,9 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/sCategorias"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tMonto" />
+        app:layout_constraintTop_toBottomOf="@+id/tMonto"
+        app:layout_constraintVertical_bias="0.648" />
 
 </android.support.constraint.ConstraintLayout>
