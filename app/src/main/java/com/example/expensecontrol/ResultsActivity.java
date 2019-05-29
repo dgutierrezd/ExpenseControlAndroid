@@ -50,4 +50,8 @@ public class ResultsActivity extends AppCompatActivity {
         Toast.makeText(this, "Se ha limpiado satisfactoriamente.", Toast.LENGTH_SHORT).show();
     }
 
+    public void onFinish(View view) {
+        finish();
+    }
+
 }

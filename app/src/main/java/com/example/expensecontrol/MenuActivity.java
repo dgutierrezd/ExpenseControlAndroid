@@ -24,4 +24,9 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
         //Toast.makeText(this, ReadWrite.readFile(MenuActivity.this), Toast.LENGTH_LONG).show();
     }
+
+    public void onAcercaDe(View view) {
+        Intent intent = new Intent(this, AcercaDeActivity.class);
+        startActivity(intent);
+    }
 }

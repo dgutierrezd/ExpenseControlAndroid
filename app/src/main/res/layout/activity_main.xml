@@ -62,6 +62,7 @@
 
     <Button
         android:id="@+id/bAgregar"
+        style="@android:style/Widget.Holo.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -71,7 +72,7 @@
         android:foregroundTint="#00000000"
         android:onClick="onAgregar"
         android:text="Agregar"
-        android:textColor="@color/textColorBlack"
+        android:textColor="@color/textColorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -106,5 +107,14 @@
         android:text="Ingreso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onFinish"
+        app:srcCompat="@drawable/back"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 
 </android.support.constraint.ConstraintLayout>

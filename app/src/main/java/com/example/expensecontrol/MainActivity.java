@@ -151,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
         sCategorias.setSelection(0);
     }
 
+    public void onFinish(View view) {
+        finish();
+    }
+
     public void setDinero(double dinero) {
         this.dinero = dinero;
     }

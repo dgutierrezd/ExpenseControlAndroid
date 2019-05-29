@@ -10,8 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ResultsActivity"></activity>
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".AcercaDeActivity" android:theme="@style/AppTheme.Mensaje"></activity>
+        <activity android:name=".ResultsActivity" />
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
