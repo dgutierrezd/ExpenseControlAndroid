@@ -31,18 +31,16 @@ public class Cartera {
      * @param estado Especifica si se realizo un gasto o ingreso.
      * @return
      */
-    public String generarDatos(String monto, Categoria categoria, String estado, Context context) {
+    public String generarDatos(String monto, Categoria categoria, String estado, Context context, String descripcion) {
         String datos = null;
         double valorMonto = Double.parseDouble(monto);
-        String aCategoria[] = categoria.getClass().getName().split(".");
-
         switch(estado) {
             case "Egreso":
-                datos = EGRESO + " " + monto + " " + categoria.getClass().getSimpleName();
+                datos = EGRESO + " " + monto + " " + categoria.getClass().getSimpleName() + " " + descripcion;
                 conocerDinero(valorMonto, estado, context);
                 break;
             case "Ingreso":
-                datos = INGRESO + " " + monto ;
+                datos = INGRESO + " " + monto + " " + descripcion;
                 conocerDinero(valorMonto, estado, context);
                 break;
         }
@@ -61,12 +59,12 @@ public class Cartera {
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
-                Acciones ingreso = new Ingreso();
+                Movimiento ingreso = new Ingreso();
 
                 setDinero(ingreso.ejecutar(dMoney, monto));
                 break;
             case "Egreso":
-                Acciones egreso = new Egreso();
+                Movimiento egreso = new Egreso();
                 setDinero(egreso.ejecutar(dMoney, monto));
                 break;
         }

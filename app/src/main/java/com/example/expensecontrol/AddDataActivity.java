@@ -46,19 +46,21 @@ public class AddDataActivity extends AppCompatActivity {
     public void onAgregar(View view) {
         EditText eMonto = (EditText) findViewById(R.id.tMonto);
         Spinner sCategorias = (Spinner) findViewById(R.id.sCategorias);
+        EditText eDescripcion = (EditText) findViewById(R.id.tDescripcion);
 
         CheckBox egreso = (CheckBox) findViewById(R.id.cEgreso);
         CheckBox ingreso = (CheckBox) findViewById(R.id.cIngreso);
 
         String monto = eMonto.getText().toString();
+        String descripcion = eDescripcion.getText().toString();
 
-        if((!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) || egreso.isChecked() && sCategorias.getSelectedItemPosition() == 0) {
+        if((!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty() || descripcion.isEmpty()) || egreso.isChecked() && sCategorias.getSelectedItemPosition() == 0) {
             crearDialogoSimple("Debes llenar todos los campos requeridos.", this);
 
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
             Lector lector = new LectorArchivoTextoPlano();
-            String datos = lector.readFileString(AddDataActivity.this, filePath) + cartera.generarDatos(monto, cartera.determinarCategoria(categoria), verificarCheckBox(), this);
+            String datos = lector.readFileString(AddDataActivity.this, filePath) + cartera.generarDatos(monto, cartera.determinarCategoria(categoria), verificarCheckBox(), this, descripcion);
 
             Escritor escritor = new EscritorArchivoTextoPlano();
             escritor.writeFile(datos, this, filePath);

@@ -1,6 +1,6 @@
 package com.example.expensecontrol;
 
-public class Ingreso extends Acciones {
+public class Ingreso extends Movimiento {
 
 
     @Override
