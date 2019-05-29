@@ -23,21 +23,11 @@ public class MainActivity extends AppCompatActivity {
      */
     private String dato;
     /**
-     * Constante para anexar a los valores de dinero egresado.
-     */
-    private static final String EGRESO = "Egreso: ";
-    /**
-     * Constante para anexar a los valores de dinero ingresado.
-     */
-    private static final String INGRESO = "Ingreso: ";
-    /**
-     * Valor inicial al dinero que se tiene al comenzar la aplicación.
-     */
-    private double dinero = 0;
-    /**
      * Ruta de archivo donde se guardan los datos.
      */
     protected String filePath = "datos.txt";
+
+    private RegistroCuenta registroCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         habilitarCategorias(false);
         verificarCheckBox();
+        registroCuenta = new RegistroCuenta();
     }
 
     /**
@@ -61,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
         String monto = eMonto.getText().toString();
 
         if((!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) || egreso.isChecked() && sCategorias.getSelectedItemPosition() == 0) {
-            crearDialogoSimple("Debes llenar todos los campos requeridos.");
+            registroCuenta.crearDialogoSimple("Debes llenar todos los campos requeridos.", this);
 
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = Reader.readFileString(MainActivity.this, filePath) + guardarDatos(monto, categoria, verificarCheckBox());
+            String datos = Reader.readFileString(MainActivity.this, filePath) + registroCuenta.guardarDatos(monto, categoria, verificarCheckBox(), this);
 
             Writer.writeFile(datos, this, filePath);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
@@ -76,29 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Se anexan los datos necesarios para agregar al archivo de texto.
-     * @param monto Cantidad de dinero ingresada.
-     * @param categoria Categoria ingresada mediante un spinner.
-     * @param estado Especifica si se realizo un gasto o ingreso.
-     * @return
-     */
-    public String guardarDatos(String monto, String categoria, String estado) {
-        String datos = null;
-        double valorMonto = Double.parseDouble(monto);
-        switch(estado) {
-            case "Egreso":
-                datos = EGRESO + " " + monto + " " + categoria;
-                conocerDinero(valorMonto, estado);
-            break;
-            case "Ingreso":
-                datos = INGRESO + " " + monto ;
-                conocerDinero(valorMonto, estado);
-            break;
-        }
-        return datos;
-    }
-
-    /**
      * Dependiendo de la opcion ingresada se habilita el spinner de 'categorias'.
      * @param opcion
      */
@@ -106,38 +74,6 @@ public class MainActivity extends AppCompatActivity {
         Spinner sCategorias = (Spinner) findViewById(R.id.sCategorias);
         sCategorias.setEnabled(opcion);
         sCategorias.setClickable(opcion);
-    }
-
-    /**
-     * Se lee un archivo de texto para conocer la cantidad de dinero que hay, y dependiendo de la
-     * acción que se realice se suma o resta a dicho valor.
-     * @param monto Cantidad de dinero ingresada
-     * @param estado Accion por realizar.
-     */
-    public void conocerDinero(double monto, String estado) {
-        String money = Reader.readFileString(this, "money.txt");
-        double dMoney = Double.parseDouble(money);
-        switch(estado) {
-            case "Ingreso":
-                setDinero( dMoney + monto);
-            break;
-            case "Egreso":
-                setDinero(dMoney - monto);
-            break;
-        }
-        String dato = Double.toString(getDinero());
-        Writer.writeFile(dato, this, "money.txt");
-    }
-
-    /**
-     * Crear dialogo alerta.
-     * @param mensaje String que se va a mostra en el diálogo.
-     */
-    public void crearDialogoSimple(String mensaje) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(mensaje);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     /**
@@ -206,14 +142,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onFinish(View view) {
         finish();
-    }
-
-    public void setDinero(double dinero) {
-        this.dinero = dinero;
-    }
-
-    public double getDinero() {
-        return dinero;
     }
 
 }
