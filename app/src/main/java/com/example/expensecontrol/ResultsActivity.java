@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Se piden los archivos y se muestran sus datos
+ *
+ */
 public class ResultsActivity extends AppCompatActivity {
 
     @Override

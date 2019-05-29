@@ -1,5 +1,6 @@
 package com.example.expensecontrol;
 
+import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import android.widget.Toast;
  * @since 20190524
  * @version 1.0
  */
-public class MainActivity extends AppCompatActivity {
+public class AddDataActivity extends AppCompatActivity {
 
     /**
      * Linea que se va a ingresar al archivo de texto.
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_data);
         habilitarCategorias(false);
         verificarCheckBox();
         registroCuenta = new RegistroCuenta();
@@ -52,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         String monto = eMonto.getText().toString();
 
         if((!egreso.isChecked() && !ingreso.isChecked() || monto.isEmpty()) || egreso.isChecked() && sCategorias.getSelectedItemPosition() == 0) {
-            registroCuenta.crearDialogoSimple("Debes llenar todos los campos requeridos.", this);
+            crearDialogoSimple("Debes llenar todos los campos requeridos.", this);
 
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = Reader.readFileString(MainActivity.this, filePath) + registroCuenta.guardarDatos(monto, categoria, verificarCheckBox(), this);
+            String datos = Reader.readFileString(AddDataActivity.this, filePath) + registroCuenta.generarDatos(monto, categoria, verificarCheckBox(), this);
 
             Writer.writeFile(datos, this, filePath);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
@@ -77,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Crear dialogo alerta.
+     * @param mensaje String que se va a mostra en el diálogo.
+     */
+    public void crearDialogoSimple(String mensaje, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(mensaje);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
      * Se verifica el estado de los checkbox.
      * @return String de checkbox seleccionado.
      */
@@ -91,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(egreso.isChecked()) {
-                    Toast.makeText(MainActivity.this, "Egreso Checked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDataActivity.this, "Egreso Checked", Toast.LENGTH_SHORT).show();
                     ingreso.setChecked(false);
                     habilitarCategorias(true);
                     dato = "Egreso";
                 } else {
-                    Toast.makeText(MainActivity.this, "Egreso Un-Checked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDataActivity.this, "Egreso Un-Checked", Toast.LENGTH_SHORT).show();
                     habilitarCategorias(false);
                 }
             }
@@ -108,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(ingreso.isChecked()) {
-                    Toast.makeText(MainActivity.this, "Ingreso Checked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddDataActivity.this, "Ingreso Checked", Toast.LENGTH_LONG).show();
                     egreso.setChecked(false);
                     habilitarCategorias(false);
                     dato = "Ingreso";
                 } else {
-                    Toast.makeText(MainActivity.this, "Ingreso Un-Checked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddDataActivity.this, "Ingreso Un-Checked", Toast.LENGTH_LONG).show();
                 }
             }
         });

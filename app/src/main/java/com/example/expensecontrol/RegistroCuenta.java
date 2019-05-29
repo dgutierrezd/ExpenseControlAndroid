@@ -32,7 +32,7 @@ public class RegistroCuenta {
      * @param estado Especifica si se realizo un gasto o ingreso.
      * @return
      */
-    public String guardarDatos(String monto, String categoria, String estado, Context context) {
+    public String generarDatos(String monto, String categoria, String estado, Context context) {
         String datos = null;
         double valorMonto = Double.parseDouble(monto);
         switch(estado) {
@@ -59,25 +59,17 @@ public class RegistroCuenta {
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
-                setDinero( dMoney + monto);
+                Acciones ingreso = new Ingreso();
+
+                setDinero(ingreso.ejecutar(dMoney, monto));
                 break;
             case "Egreso":
-                setDinero(dMoney - monto);
+                Acciones egreso = new Egreso();
+                setDinero(egreso.ejecutar(dMoney, monto));
                 break;
         }
         String dato = Double.toString(getDinero());
         Writer.writeFile(dato, context, "money.txt");
-    }
-
-    /**
-     * Crear dialogo alerta.
-     * @param mensaje String que se va a mostra en el diálogo.
-     */
-    public void crearDialogoSimple(String mensaje, Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(mensaje);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     public void setDinero(double dinero) {
