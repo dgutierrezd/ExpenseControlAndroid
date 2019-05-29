@@ -28,7 +28,7 @@ public class AddDataActivity extends AppCompatActivity {
      */
     protected String filePath = "datos.txt";
 
-    private Cartera registroCuenta;
+    private Cartera cartera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class AddDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_data);
         habilitarCategorias(false);
         verificarCheckBox();
-        registroCuenta = new Cartera();
+        cartera = new Cartera();
     }
 
     /**
@@ -58,7 +58,7 @@ public class AddDataActivity extends AppCompatActivity {
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
             Lector lector = new LectorArchivoTextoPlano();
-            String datos = lector.readFileString(AddDataActivity.this, filePath) + registroCuenta.generarDatos(monto, categoria, verificarCheckBox(), this);
+            String datos = lector.readFileString(AddDataActivity.this, filePath) + cartera.generarDatos(monto, cartera.determinarCategoria(categoria), verificarCheckBox(), this);
 
             Escritor escritor = new EscritorArchivoTextoPlano();
             escritor.writeFile(datos, this, filePath);
