@@ -1,8 +1,6 @@
 package com.example.expensecontrol;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
-
 /**
  * Controla el ingreso y egreso de datos a los archivos de texto.
  * @author Daniel Gutierrez
@@ -10,7 +8,8 @@ import android.support.v7.app.AlertDialog;
  * @since 20190524
  * @version 1.0
  */
-public class RegistroCuenta {
+public class Cartera {
+
     /**
      * Constante para anexar a los valores de dinero egresado.
      */
@@ -55,7 +54,8 @@ public class RegistroCuenta {
      * @param estado Accion por realizar.
      */
     public void conocerDinero(double monto, String estado, Context context) {
-        String money = Reader.readFileString(context, "money.txt");
+        Lector lector = new LectorArchivoTextoPlano();
+        String money = lector.readFileString(context, "money.txt");
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
@@ -69,7 +69,8 @@ public class RegistroCuenta {
                 break;
         }
         String dato = Double.toString(getDinero());
-        Writer.writeFile(dato, context, "money.txt");
+        Escritor escritor = new EscritorArchivoTextoPlano();
+        escritor.writeFile(dato, context, "money.txt");
     }
 
     public void setDinero(double dinero) {

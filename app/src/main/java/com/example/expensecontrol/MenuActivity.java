@@ -21,11 +21,11 @@ public class MenuActivity extends AppCompatActivity {
     public void verRegistros(View view) {
         Intent intent = new Intent(this, ResultsActivity.class);
         startActivity(intent);
-        //Toast.makeText(this, Reader.readFile(MenuActivity.this), Toast.LENGTH_LONG).show();
     }
 
     public void onAcercaDe(View view) {
         Intent intent = new Intent(this, AcercaDeActivity.class);
         startActivity(intent);
     }
+
 }

@@ -28,7 +28,7 @@ public class AddDataActivity extends AppCompatActivity {
      */
     protected String filePath = "datos.txt";
 
-    private RegistroCuenta registroCuenta;
+    private Cartera registroCuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class AddDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_data);
         habilitarCategorias(false);
         verificarCheckBox();
-        registroCuenta = new RegistroCuenta();
+        registroCuenta = new Cartera();
     }
 
     /**
@@ -57,9 +57,11 @@ public class AddDataActivity extends AppCompatActivity {
 
         } else {
             String categoria = String.valueOf(sCategorias.getSelectedItem());
-            String datos = Reader.readFileString(AddDataActivity.this, filePath) + registroCuenta.generarDatos(monto, categoria, verificarCheckBox(), this);
+            Lector lector = new LectorArchivoTextoPlano();
+            String datos = lector.readFileString(AddDataActivity.this, filePath) + registroCuenta.generarDatos(monto, categoria, verificarCheckBox(), this);
 
-            Writer.writeFile(datos, this, filePath);
+            Escritor escritor = new EscritorArchivoTextoPlano();
+            escritor.writeFile(datos, this, filePath);
             Toast.makeText(this, "Se ha guardado satisfactoriamente.", Toast.LENGTH_SHORT).show();
             limpiarEspacios();
         }

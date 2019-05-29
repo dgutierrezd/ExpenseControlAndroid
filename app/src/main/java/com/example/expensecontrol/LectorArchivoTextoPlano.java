@@ -15,9 +15,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class Reader {
+public class LectorArchivoTextoPlano implements Lector {
 
-    public static  String readFileString(Context context, String filePath) {
+    public String readFileString(Context context, String filePath) {
         String data = "";
 
         try {
