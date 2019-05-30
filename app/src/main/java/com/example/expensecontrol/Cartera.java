@@ -1,6 +1,10 @@
 package com.example.expensecontrol;
 
 import android.content.Context;
+import android.util.Log;
+
+import java.util.ArrayList;
+
 /**
  * Controla el ingreso y egreso de datos a los archivos de texto.
  * @author Daniel Gutierrez
@@ -9,6 +13,12 @@ import android.content.Context;
  * @version 1.0
  */
 public class Cartera {
+
+    private ArrayList<Movimiento> movimientos;
+
+    private Escritor escritor;
+
+    private Lector lector;
 
     /**
      * Constante para anexar a los valores de dinero egresado.
@@ -23,6 +33,11 @@ public class Cartera {
      */
     private double dinero = 0;
 
+    public Cartera() {
+        this.movimientos = new ArrayList<>();
+        escritor = new EscritorArchivoTextoPlano();
+        lector = new LectorArchivoTextoPlano();
+    }
 
     /**
      * Se anexan los datos necesarios para agregar al archivo de texto.
@@ -37,14 +52,22 @@ public class Cartera {
         switch(estado) {
             case "Egreso":
                 datos = EGRESO + " " + monto + " " + categoria.getClass().getSimpleName() + " " + descripcion;
+                Movimiento egreso = new Egreso(valorMonto, descripcion, categoria);
+                agregarMovimientos(egreso);
                 conocerDinero(valorMonto, estado, context);
                 break;
             case "Ingreso":
                 datos = INGRESO + " " + monto + " " + descripcion;
+                Movimiento ingreso = new Ingreso(valorMonto, descripcion, categoria);
+                agregarMovimientos(ingreso);
                 conocerDinero(valorMonto, estado, context);
                 break;
         }
         return datos;
+    }
+
+    public void agregarMovimientos(Movimiento movimiento) {
+        movimientos.add(movimiento);
     }
 
     /**
@@ -54,23 +77,22 @@ public class Cartera {
      * @param estado Accion por realizar.
      */
     public void conocerDinero(double monto, String estado, Context context) {
-        Lector lector = new LectorArchivoTextoPlano();
         String money = lector.readFileString(context, "money.txt");
         double dMoney = Double.parseDouble(money);
         switch(estado) {
             case "Ingreso":
-                Movimiento ingreso = new Ingreso();
-
-                setDinero(ingreso.ejecutar(dMoney, monto));
+                setDinero(calcularDinero(dMoney, monto));
                 break;
             case "Egreso":
-                Movimiento egreso = new Egreso();
-                setDinero(egreso.ejecutar(dMoney, monto));
+                setDinero(calcularDinero(dMoney, -monto));
                 break;
         }
         String dato = Double.toString(getDinero());
-        Escritor escritor = new EscritorArchivoTextoPlano();
         escritor.writeFile(dato, context, "money.txt");
+    }
+
+    public double calcularDinero(double dinero, double monto) {
+        return dinero + monto;
     }
 
     public Categoria determinarCategoria(String categoria){

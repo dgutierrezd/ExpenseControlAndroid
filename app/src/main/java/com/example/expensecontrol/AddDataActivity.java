@@ -71,6 +71,7 @@ public class AddDataActivity extends AppCompatActivity {
 
     }
 
+
     /**
      * Dependiendo de la opcion ingresada se habilita el spinner de 'categorias'.
      * @param opcion

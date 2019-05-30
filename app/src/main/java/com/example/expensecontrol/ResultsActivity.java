@@ -13,6 +13,8 @@ import android.widget.Toast;
  */
 public class ResultsActivity extends AppCompatActivity {
 
+    private Cartera cartera;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

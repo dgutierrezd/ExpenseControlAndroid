@@ -1,5 +1,14 @@
 package com.example.expensecontrol;
 
 public abstract class Movimiento {
-    public abstract double ejecutar(double dinero, double monto);
+
+    private double monto;
+    private String descripion;
+    private Categoria categoria;
+
+    public Movimiento(double monto, String descripion, Categoria categoria) {
+        this.monto = monto;
+        this.descripion = descripion;
+        this.categoria = categoria;
+    }
 }
