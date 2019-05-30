@@ -28,7 +28,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Aplicación que busca fomentar el buen manejo del dinero y conociendo principalmente nuestros gastos e ingresos. Ésta fue desarrollada por dos estudiantes de la Universidad Autonoma de Manizales."
+        android:text="Aplicación que busca fomentar el buen manejo del dinero y conociendo principalmente nuestros gastos e ingresos. Ésta fue desarrollada por dos estudiantes de la Universidad Autonoma de Manizales.                                               Daniel Gutierrez y Sebastian Cordero."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
